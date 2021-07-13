@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %} CCCCCCCCC {% endblock %}
+
+{% block site %}
+
+            <div class="jumbotron">
+                <h1 class="display-4"> LISTA OCEN STUDENTÓW </h1>
+            </div>
+    <hr>
+
+        <a href="{% url 'new_grade' %}"><button type="submit" class="btn btn-success">Dodaj ocenę</button></a>
+        <br>
+        <br>
+        <h1> {{course}}: </h1>
+
+    <br>
+<!--
+    {% for x in q %}
+            <h3 class="card-title">{{ x.course }}</h3>
+    {% endfor %}
+-->
+
+
+    {% for x in q %}
+
+            <div class="card" style="width: 55rem;">
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-9">
+                        <h3 class="card-title">{{ x.student }}</h3>
+
+                      </div>
+                  <div class="row">
+                      <h3 class="card-title" >{{ x.grade }}</h3>
+
+<!--
+                      <select class="form-select" aria-label="Default select example">
+                          <option selected>{{ x.grade }}</option>
+                      </select>
+-->
+
+
+                  </div>
+
+                      <div class="col-3">
+                          <a href="{% url 'edit_grade' x.id %}"><i class="fas fa-3x fa-edit"></i></a>
+
+                          <a href="{% url 'delete_grade' x.id %}"><i class="fas fa-3x fa-trash-alt"></i></a>
+                      </div>
+
+
+                  </div>
+              </div>
+            </div>
+
+   {% endfor %}
+                <hr>
+                    <h5> średnia ocen studentów z przedmiotu "{{course}}": {{m}} </h5>
+                <hr>
+
+                <a href="{% url 'all_courses' %}"><button type="submit" class="btn btn-primary">Cofnij</button></a>
+
+
+{% endblock %}
+
+<!--
+href="{% url 'edit_grade' x.id %}"-->

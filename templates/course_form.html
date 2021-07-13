@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %} Dodaj przedmiot {% endblock %}
+
+{% block site %}
+
+    <div class="card" style="width: 35rem; float: left; margin-right: 1rem;">
+      <div class="card-body">
+          {% if new %}
+            <h5 class="card-title">Nowy przedmiot</h5>
+                {% else %}
+            <h5 class="card-title">Edytuj przedmiot</h5>
+                {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form|bootstrap }}
+
+                {% if new %}
+              <button type="submit" class="btn-primary">Dodaj przedmiot</button>
+                    {% else %}
+              <button type="submit" class="btn-primary">Edytuj przedmot</button>
+                    {% endif %}
+        </form>
+
+      </div>
+
+            <a href="{% url 'all_courses' %}">Cofnij</a>
+
+
+    </div>
+
+
+
+
+
+{% endblock %}

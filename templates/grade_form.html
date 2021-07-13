@@ -1,0 +1,36 @@
+
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %} DDDDDDDDDDDDDDDDDDDDDDDDDDDD {% endblock %}
+
+{% block site %}
+
+    <div class="card" style="width: 35rem; float: left; margin-right: 1rem;" >
+      <div class="card-body">
+          {% if new %}
+            <h5 class="card-title">Nowa ocena</h5>
+                {% else %}
+            <h5 class="card-title">Edytuj ocenę</h5>
+                {% endif %}
+
+      <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{ form|bootstrap }}
+
+                    {% if new %}
+                  <button type="submit" class="btn-primary">Dodaj ocenę</button>
+                        {% else %}
+                  <button type="submit" class="btn-primary">Edytuj ocenę</button>
+
+                    {% endif %}
+       </form>
+
+     </div>
+
+            <a href="{% url 'all_courses' %}">Cofnij</a>
+
+   </div>
+
+
+
+{% endblock %}

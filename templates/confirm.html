@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Usuń przedmiot {% endblock %}
+
+{% block site %}
+
+    <div class="card" style="width: 35rem;">
+      <div class="card-body">
+          <h5 class="card-title">Czy napewno chcesz usunac "{{ course.title }}" ?</h5>
+              <form method="post">
+                {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Usun przedmiot</button>
+              </form>
+      </div>
+    </div>
+
+       <a href="{% url 'all_courses' %}">Cofnij</a>
+
+{% endblock %}

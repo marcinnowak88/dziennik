@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %} Dodaj studenta {% endblock %}
+
+{% block site %}
+
+    <div class="card" style= "width: 35rem; float: left; margin-right: 1rem;">
+      <div class="card-body">
+          {% if new %}
+            <h5 class="card-title">Nowy student</h5>
+                {% else %}
+            <h5 class="card-title">Edytuj studenta</h5>
+                {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form|bootstrap }}
+
+                {% if new %}
+              <button type="submit" class="btn-primary">Dodaj studenta</button>
+                    {% else %}
+              <button type="submit" class="btn-primary">Edytuj studenta</button>
+                    {% endif %}
+        </form>
+
+      </div>
+
+            <a href="{% url 'all_students' %}">Cofnij</a>
+
+
+    </div>
+
+
+
+
+
+{% endblock %}

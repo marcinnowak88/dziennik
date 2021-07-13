@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Lista studentów {% endblock %}
+
+{% block site %}
+
+
+    {% for student in student_list %}
+    {% for course in student.courses.all %}
+
+
+    <h2>----------------------------</h2>
+
+    <h2> {{ student.first_name }}  {{ student.last_name }} {{ course.title }}</h2>
+
+    {% endfor %}
+    {% endfor %}
+
+
+
+{% endblock %}

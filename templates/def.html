@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %} BBBBBBBBBBB {% endblock %}
+
+{% block site %}
+
+            <div class="jumbotron">
+
+                <h1 class="display-4"> LISTA OCEN STUDENTA </h1>
+
+            </div>
+
+        <h1> {{ student }} </h1>
+
+        <br>
+
+    {% for x in q %}
+
+            <div class="card" style="width: 55rem;">
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-9">
+                        <h3 class="card-title">{{ x.course }}</h3>
+
+                      </div>
+                  <div class="row">
+                      <h3 class="card-title" >{{ x.grade }}</h3>
+                  </div>
+
+                      <div class="col-3">
+                          <a href="{% url 'edit_grade' x.id %}"><i class="fas fa-3x fa-edit"></i></a>
+                          <a href="{% url 'delete_grade' x.id %}"><i class="fas fa-3x fa-trash-alt"></i></a>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+
+    {% endfor %}
+
+                <hr>
+                    <h5> średnia ocen studenta "{{student}}": {{m}} </h5>
+                <hr>
+
+                <a href="{% url 'all_students' %}"><button type="submit" class="btn btn-primary">Cofnij</button></a>
+{% endblock %}
+
+
+
+<!--
+    <h5>{{student.first_name}} {{student.last_name}}</h5>
+
+    <h3>{{student.courses.all}}</h3>-->
+
+    <!--{% for x in student.courses.all %}
+
+        <h2>  {{ x.title }} </h2>
+
+
+   {% endfor %}
+
+-->
+<!--
+
+    {% for course in student.courses.all %}
+
+        <h2> {{ course.grade }} </h2>
+
+    {% endfor %}
+-->
+

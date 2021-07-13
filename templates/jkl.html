@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} CCCCCCCCC {% endblock %}
+
+{% block site %}
+
+            <div class="jumbotron">
+                <h1 class="display-4"> LISTA OCEN STUDENTÓW </h1>
+
+            </div>
+
+    <br>
+    <hr>
+
+        <h1> {{list_of_grades}}: </h1>
+        <h1> {{list_of_grades.1.grade}}: </h1>
+        <h1> {{list_of_grades.1}}: </h1>
+    <hr>
+    <br>
+<!--
+    {% for x in q %}
+            <h3 class="card-title">{{ x.course }}</h3>
+    {% endfor %}
+-->
+
+
+    {% for x in list_of_grades %}
+
+        <h1> {{x.grade}} </h1>
+
+   {% endfor %}
+
+
+
+
+
+{% endblock %}

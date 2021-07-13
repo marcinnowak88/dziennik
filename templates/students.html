@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %} Lista studentów {% endblock %}
+
+{% block site %}
+
+  <!--<h2>Liczba przedmiotów: {{ courses|length  }} </h2>-->
+
+    <h5 class="display-7">Witaj {{ user.username }}</h5>
+    <div class="jumbotron">
+        {% if user.is_authenticated %}
+
+          <h1 class="display-4">LISTA STUDENTÓW <a href="{% url 'main_view' %}"><i class="fas fa-1x fa-home"></i></a></h1>
+          <a class="btn btn-dark btn-lg" href="{% url 'login_view' %}" role="button">Wyloguj się</a>
+
+        {% else %}
+          <a href="{% url 'login_view' %}">Login</a>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <a href="{% url 'new_student' %}"><button type="submit" class="btn btn-success">Nowy student</button></a>
+    <a href="{% url 'all_courses' %}"><button type="submit" class="btn btn-success">Lista wszystkich przedmiotów</button></a>
+
+    <br>
+    <br>
+
+
+    {% if students|length == 0 %}
+        <h2>Brak studentów</h2>
+    {% else %}
+
+    <h2>Liczba studentów: {{ students|length  }} </h2>
+
+    <br>
+        <!--<h2>Wszyscy studenci: </h2>-->
+
+        {% for student in students %}
+
+        <hr>
+            <div class="card" style="width: 50rem;">
+              <div class="card-body">
+                  <img src="/media/{{student.student_image}}" width = "200px" style="float:left;">
+                  <div class="row">
+
+                      <div class="col-9">
+                        <h3 class="card-title">{{ student.first_name }} {{ student.last_name }} </h3>
+                      </div>
+
+                      <div class="col-3">
+                          <a href="{% url 'edit_student' student.id %}"><i class="fas fa-3x fa-edit"></i></a>
+                          <a href="{% url 'delete_student' student.id %}"><i class="fas fa-3x fa-trash-alt"></i></a>
+                      </div>
+
+                      <div class="col-3">
+                          <a href="{% url 'edit_student_course' student.id %}">
+                              <button type="submit" class="btn btn-secondary">Przedmioty</button></a>
+                      </div>
+
+                  </div>
+
+                        <div class="row">
+                      <p class="card-text opis" style="margin-left: 15px;"> nr albumu: {{student.album}}</p>
+                        </div>
+              </div>
+            </div>
+
+
+        {% endfor %}
+
+
+<br>
+<a href="{% url 'all_courses' %}"><button type="submit" class="btn btn-primary">Lista wszystkich przedmiotów</button></a>
+
+    {% endif %}
+
+
+
+
+
+
+<!--
+
+    {% if students|length == 0 %}
+        <h2>Brak studentów</h2>
+    {% else %}
+
+        <h2>Liczba studentów: {{ students|length  }} </h2>
+        <h2>Liczba przedmiotów: {{ courses|length  }} </h2>
+
+        <h2>Wszyscy studenci: </h2>
+
+
+        {% for student in students %}
+            <h3>{{ student.last_name }}</h3>
+
+            {% for student in students %}
+                <h6> 123 </h6>
+            {% endfor %}
+
+        {% endfor %}
+
+
+    {% endif %}
+
+
+
+
+
+ {% if courses|length == 0 %}
+        <h2>Brak kursów</h2>
+    {% else %}
+
+        <h2>Liczba przedmiotów: {{ courses|length  }} </h2>
+
+        <h2>Wszystkie kursy: </h2>
+
+
+        {% for course in courses %}
+            <h3>{{ course.title }}</h3>
+
+            {% endfor %}
+
+    {% endif %}
+
+-->
+
+
+
+
+
+
+{% endblock %}

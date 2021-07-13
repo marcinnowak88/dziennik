@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Dziennik ocen {% endblock %}
+
+{% block site %}
+
+    <!--<h2>Liczba studentów: {{ students|length  }} </h2> -->
+
+    <div class="jumbotron">
+        <h1 class="display-4">Dziennik ocen</h1>
+        <br>
+
+        {% if user.is_authenticated %}
+
+        <a href="{% url 'all_courses' %}"><button type="submit" class="btn btn-success">Lista wszystkich przedmiotów</button></a>
+        <a href="{% url 'all_students' %}"><button type="submit" class="btn btn-success">Lista wszystkich studentów</button></a>
+        <a class="btn btn-danger" href="{% url 'login_view' %}" role="button">Wyloguj się</a>
+        <a class="btn btn-warning" href="{% url 'test' %}" role="button">URL testowy</a>
+
+        {% else %}
+
+          <a class="btn btn-dark" href="{% url 'login_view' %}" role="button">Zaloguj się</a>
+
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <img src="/media/bbb.jpg" width = "200px" style="float:none;">
+    <img src="/media/bbb.jpg" width = "200px" style="float:none;">
+    <img src="/media/bbb.jpg" width = "200px" style="float:none;">
+    <img src="/media/bbb.jpg" width = "200px" style="float:none;">
+    <img src="/media/bbb.jpg" width = "200px" style="float:none;">
+
+    <hr>
+
+{% endblock %}
