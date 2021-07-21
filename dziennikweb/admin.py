@@ -30,9 +30,12 @@ class Student_course_gradeAdmin(admin.ModelAdmin):
     fields = ["course","student", "grade"]
     list_display = ["course","student", "grade"]
 
-
-
-
-
 #admin.site.register(User, UserAdmin)
+
+
+
+UserAdmin.fieldsets += ('Custom fields set', {'fields': ('is_student', 'is_teacher', 'student')}),
+@admin.register(User)
+class DziennikAdmin(UserAdmin):
+    pass
 

@@ -41,10 +41,46 @@ class GradeForm(ModelForm):
 """
 
 
-
 class LoginForm(forms.Form):
     username = forms.CharField(label='Username', max_length=20)
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+
+class NewForm(forms.Form):
+    GRADE = {
+        ('2.0', '2.0'),
+        ('3.0', '3.0'),
+        ('3.5', '3.5'),
+        ('4.0', '4.0'),
+        ('4.5', '4.5'),
+        ('5.0', '5.0'),
+    }
+    ocena = forms.ChoiceField(choices=GRADE)
+
+
+
+
+"""
+< select
+class ="form-select" aria-label="Default select example" >
+< option
+selected > Ocena < / option >
+< option
+value = "1" > 2.0 < / option >
+< option
+value = "2" > 3.0 < / option >
+< option
+value = "3" > 3.5 < / option >
+< option
+value = "4" > 4.0 < / option >
+< option
+value = "5" > 4.5 < / option >
+< option
+value = "6" > 5.0 < / option >
+< / select >
+"""
+
 
 # class StudentRegisterForm(forms.Form):
 #     username = forms.CharField(label='Username', max_length=20)

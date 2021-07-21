@@ -1,7 +1,8 @@
 from django.urls import path
 from dziennikweb.views import all_courses, new_course, edit_course, delete_course
 from dziennikweb.views import all_students, new_student, edit_student, delete_student, new_grade, edit_grade, delete_grade
-from dziennikweb.views import student, edit_student_course,course_list_of_student, login_view, main_view, average, test
+from dziennikweb.views import student, edit_student_course,course_list_of_student, login_view, main_view, average, test, new_form
+
 
 urlpatterns = [
     path('all/', all_courses, name="all_courses"),
@@ -32,5 +33,6 @@ urlpatterns = [
     path('abc/', student, name="student"),
     path('average/', average, name="average"),
     path('test/', test, name="test"),
+    path('new_form/', new_form, name="new_form"),
 
 ]

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} CCCCCCCCC {% endblock %}
+{% block title %} oceny {% endblock %}
 
 {% block site %}
 
@@ -29,16 +29,15 @@
                   <div class="row">
                       <div class="col-9">
                         <h3 class="card-title">{{ x.student }}</h3>
-
+ <!--
+                          <form method="post">
+                            {% csrf_token %}
+                            {{form2}}<input type="submit" value="wyślij">
+                          </form>
+-->
                       </div>
                   <div class="row">
                       <h3 class="card-title" >{{ x.grade }}</h3>
-
-<!--
-                      <select class="form-select" aria-label="Default select example">
-                          <option selected>{{ x.grade }}</option>
-                      </select>
--->
 
 
                   </div>
@@ -49,12 +48,29 @@
                           <a href="{% url 'delete_grade' x.id %}"><i class="fas fa-3x fa-trash-alt"></i></a>
                       </div>
 
-
                   </div>
               </div>
             </div>
 
+
+
+                    <form method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            {{z.id}}
+                            -------
+                            {{x.id}}
+                          {{ form3 }}
+                            {% if new %}
+                                <button type="submit" class="btn-primary">Dodaj ocenę</button>
+                            {% else %}
+                                <button type="submit" class="btn-primary">Edytuj ocenę</button>
+                            {% endif %}
+                    </form>
+
    {% endfor %}
+
+
+
                 <hr>
                     <h5> średnia ocen studentów z przedmiotu "{{course}}": {{m}} </h5>
                 <hr>

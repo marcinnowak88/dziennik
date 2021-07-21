@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %} Logowanie {% endblock %}
+
+{% block site %}
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form2 }}
+    <input type="submit" value="wyślij">
+</form>
+
+
+{% endblock %}

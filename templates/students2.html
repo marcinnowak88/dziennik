@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Moje oceny {% endblock %}
+{% block title %} Lista studentów {% endblock %}
 
 {% block site %}
 
@@ -10,8 +10,7 @@
     <div class="jumbotron">
         {% if user.is_authenticated %}
 
-          <h1 class="display-4">MÓJ DZIENNIK <a href="{% url 'main_view' %}"><i class="fas fa-1x fa-home"></i></a></h1>
-          <a href="{% url 'all_students' %}"><button type="submit" class="btn btn-success btn-lg">Moje oceny </button></a>
+          <h1 class="display-4">MOJE OCENY <a href="{% url 'main_view' %}"><i class="fas fa-1x fa-home"></i></a></h1>
           <a class="btn btn-dark btn-lg" href="{% url 'login_view' %}" role="button">Wyloguj się</a>
 
         {% else %}
@@ -19,28 +18,20 @@
         {% endif %}
     </div>
 
-    <hr>
-
-  <!--  <a href="{% url 'new_student' %}"><button type="submit" class="btn btn-success">Nowy student</button></a>-->
-
-
-
-    <br>
-    <br>
+    <!--<a href="{% url 'new_student' %}"><button type="submit" class="btn btn-success">Nowy student</button></a>-->
+    <!--<a href="{% url 'all_courses' %}"><button type="submit" class="btn btn-success">Lista wszystkich przedmiotów</button></a>-->
 
 <!--
     {% if students|length == 0 %}
         <h2>Brak studentów</h2>
     {% else %}
--->
-    <h2>Liczba studentów: {{ students|length  }} </h2>
 
-    <br>
+    <h2>Liczba studentów: {{ students|length  }} </h2>
+-->
         <!--<h2>Wszyscy studenci: </h2>-->
 
         {% for student in students %}
 
-        <hr>
             <div class="card" style="width: 50rem;">
               <div class="card-body">
                   <img src="/media/{{student.student_image}}" width = "200px" style="float:left;">
@@ -51,7 +42,7 @@
                       </div>
 
                       <div class="col-3">
-                         <!-- <a href="{% url 'edit_student' student.id %}"><i class="fas fa-3x fa-edit"></i></a>-->
+                          <!--<a href="{% url 'edit_student' student.id %}"><i class="fas fa-3x fa-edit"></i></a>-->
                           <!--<a href="{% url 'delete_student' student.id %}"><i class="fas fa-3x fa-trash-alt"></i></a>-->
                       </div>
 
@@ -73,11 +64,9 @@
 
 
 <br>
+<!--<a href="{% url 'all_courses' %}"><button type="submit" class="btn btn-primary">Lista wszystkich przedmiotów</button></a>-->
 
     {% endif %}
-
-
-
 
 
 {% endblock %}

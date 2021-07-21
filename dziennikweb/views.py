@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Course, Student, Student_course_grade
-from .forms import CourseForm, StudentForm, StudentForm, GradeForm, LoginForm
+from .forms import CourseForm, StudentForm, StudentForm, GradeForm, LoginForm, NewForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
@@ -46,17 +46,42 @@ def delete_course(request, id):
     return render(request, 'confirm.html', {'course': course})
 
 
-
-
-
 @login_required
 def all_students(request):
-    all = Student.objects.all
+    all = [request.user.student]
 
-    if not request.user.has_perm('applications.admin_access'):
-        all = []
+    if request.user.has_perm('applications.admin_access'):
+        all = Student.objects.all
+        return render(request, 'students.html', {'students': all})
+
+    else:
+        return render(request, 'students2.html',{'students': all})
+
+
+"""
+@login_required
+def all_students(request):
+    all = [request.user.student]
+
+    if request.user.has_perm('applications.admin_access'):
+        all = Student.objects.all
 
     return render(request, 'students.html',{'students': all})
+"""
+
+"""
+@login_required
+def all_students2(request):
+    all = [request.user.student]
+
+    if request.user.has_perm('applications.admin_access'):
+        all = Student.objects.all
+
+    return render(request, 'students2.html',{'students': all})
+
+"""
+
+
 
 
 @login_required
@@ -73,10 +98,6 @@ def new_student(request):
         return redirect(all_students)
 
     return render(request, 'student_form.html', {'form': form, 'new': is_new})
-
-
-
-
 
 
 
@@ -121,6 +142,39 @@ def student(request):
 
 
 
+@login_required
+def edit_student_course(request, id):
+
+    q = Student_course_grade.objects.filter(student=id)
+    c = Student.objects.get(pk=id)
+
+    l = []
+    for x in q:
+        l.append(float(x.grade))
+    if len(l) > 0:
+        m = sum(l) / len(l)
+    else:
+        m = "brak ocen"
+
+    if request.user.has_perm('applications.admin_access'):
+
+        return render(request, 'def.html', {'q': q, 'student': c, 'm': m})
+
+    else:
+        return render(request, 'mno.html', {'q': q, 'student': c, 'm': m})
+
+"""
+
+@login_required
+def all_students(request):
+    all = [request.user.student]
+
+    if request.user.has_perm('applications.admin_access'):
+        all = Student.objects.all
+        return render(request, 'students.html', {'students': all})
+
+    else:
+        return render(request, 'students2.html',{'students': all})
 
 
 
@@ -141,6 +195,12 @@ def edit_student_course(request, id):
         m = "brak ocen"
     return render(request, 'def.html', {'q': q, 'student': c, 'm': m})
 
+"""
+
+
+
+
+
 
 """
     student = get_object_or_404(Student, pk=id)
@@ -153,7 +213,11 @@ def edit_student_course(request, id):
 def course_list_of_student(request, id):
 
     q = Student_course_grade.objects.filter(course=id)
+    z = Student_course_grade.objects.get(pk=id)
+    xx = Student_course_grade.objects.filter(course=id).get(pk=id)
     c = Course.objects.get(pk=id)
+    form3 = GradeForm(request.POST or None, request.FILES or None, instance=z)
+    form2 = NewForm()
 
 
     l=[]
@@ -166,7 +230,7 @@ def course_list_of_student(request, id):
     else:
         m = "brak ocen"
 
-    return render(request, 'ghi.html', {'q': q, 'course': c, 'm': m})
+    return render(request, 'ghi.html', {'q': q, 'z': z, 'xx': xx, 'course': c, 'm': m, 'form2': form2, 'form3': form3})
 
 
 
@@ -179,7 +243,7 @@ def new_grade(request):
         form.save()
         return redirect(all_courses)
 
-    return  render(request, 'grade_form.html', {'form': form, 'new': is_new})
+    return render(request, 'grade_form.html', {'form': form, 'new': is_new})
 
 
 @login_required
@@ -194,6 +258,7 @@ def edit_grade(request, id):
         return redirect(all_courses)
 
     return render(request, 'grade_form.html', {'form': form, 'new': is_new})
+    return render(request, 'ghi.html', {'form': form, 'new': is_new})
 
 
 
@@ -242,14 +307,10 @@ def login_view(request):
 
 
 
-
-
 def average(request):
     list_of_grades = Student_course_grade.objects.filter(student=1)
 
     return render(request, 'jkl.html', {'list_of_grades': list_of_grades})
-
-
 
 
 
@@ -271,6 +332,38 @@ def test(request):
     g = Student.objects.get(pk=1)
 
     return render(request, 'test.html', {'a': a, 'b': b, 'd': d, 'f': f, 'l': l, 'm': m, 'g': g})
+
+
+# to nie jest wyswietlane nigdzie:
+"""
+def new_form(request, id):
+
+    #form = NewForm()
+    is_new = False
+    grade = Student_course_grade.objects.get(pk=id)
+    if request.method == "POST":
+        form = NewForm(request.POST or None, request.FILES or None, instance=grade)
+
+        if form.is_valid():
+            form.save()
+            return redirect(all_courses)
+    else:
+        form = NewForm()
+
+    return render(request, 'new_form.html',{'form':form, 'new': is_new})
+"""
+def new_form(request):
+
+    if request.method == "POST":
+        form2 = NewForm(request.POST)
+
+        if form2.is_valid():
+            print('form is valid')
+    else:
+        form2 = NewForm()
+
+    return render(request, 'new_form.html',{'form2': form2})
+    return render(request, 'ghi.html',{'form2': form2})
 
 
 
